@@ -1,0 +1,45 @@
+<%- include("_header",{stylesheet:"question",title:"FAQ",name:user.name,email:user.Email}) -%>
+
+<% if (typeof feedback != 'undefined'){ %>
+  <div id="feedback">
+    <p id ="feedback-text"><%=feedback%></p>
+  </div>
+<%}%>
+
+<div class="question-header">
+  <p class="question-domain"><%= model.Domain %></p>
+  <p class="question-content"><%= model.Question %></p>
+  <p class="question-author">Posted by: <%= model.Author %></p>
+</div>
+
+
+<div id="react-answer-list"
+  answers="<%=JSON.stringify(model.answers)%>"
+  faqId = "<%=JSON.stringify(model.faqId)%>">
+</div>
+
+
+<h3>Add answer</h3>
+
+<form action="" method="post">
+  <div class="form-horizontal">
+
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2" for="Answer">Answer</label>
+      <div class="col-sm-7">
+        <textarea class="form-control" name="Answer"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2"></label>
+      <div class="col-sm-10">
+        <input type="submit" value="Post" class="btn btn-default btn-success" />
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+<%- include("_footer",{reactScript:"answer-list"}) -%>

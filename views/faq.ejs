@@ -1,0 +1,46 @@
+<%- include("_header",{stylesheet:"faq",title:"FAQ"}) -%>
+
+<div id="submenu">
+  <div class="submenuOption"><a href="/faq" class="submenuText">All</a></div>
+  <div class="submenuOption"><a href="/faq/filter/General" class="submenuText">General</a></div>
+  <div class="submenuOption"><a href="/faq/filter/Coding" class="submenuText">Coding</a></div>
+  <div class="submenuOption"><a href="/faq/filter/Maths" class="submenuText">Maths</a></div>
+  <div class="submenuOption"><a href="/faq/filter/Other" class="submenuText">Other</a></div>
+</div>
+
+<form id="searchContainer" action="/faq/search" method="POST">
+  <input class="form-control" name="Search" placeholder="Search in all questions..." />
+  <input type="submit" value="Search" class="btn btn-default btn-success" />
+</form>
+
+<h1>List of Question (<%= domain %>)</h1>
+
+<% if (typeof feedback != 'undefined'){ %>
+  <div id="feedback">
+    <p id ="feedback-text"><%=feedback%></p>
+  </div>
+<% } %>
+
+<div id="react-question-list" 
+     questions="<%=JSON.stringify(model)%>"
+     domain="<%= JSON.stringify(domain)%>">
+</div>
+
+<h1>Add a Question</h1>
+
+<form action="/faq" method="post">
+  <div class="form-horizontal">
+
+    <%- include("_editor") -%>
+
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2"></label>
+      <div class="col-sm-10">
+        <input type="submit" value="Save" class="btn btn-default btn-success" />
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<%- include("_footer",{reactScript:"question-list"}) -%>

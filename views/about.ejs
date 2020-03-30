@@ -1,0 +1,9 @@
+<% if(typeof user === 'undefined') user = {} %>
+<%- include("_header",{stylesheet:"about",title:"About"}) -%>
+
+<picture>
+    <source srcset="images/ZX10R_small.jpg" media="(max-device-width: 600px)">
+    <img src="images/ZX10R.jpg">
+</picture>
+
+<%- include("_footer") -%>

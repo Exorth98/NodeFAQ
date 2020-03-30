@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>FAQ</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/general.css">
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+
+  <% if(typeof stylesheet !== 'undefined') { %>
+    <link rel="stylesheet" type="text/css" href="/css/<%=stylesheet%>.css">
+  <%}%>
+</head>
+
+<body>
+
+  <div id="menu">
+    <div id="menuOptions">
+      <div class="menuOption"><a href="/" class="menuText">Home</a></div>
+      <div class="menuOption"><a href="/faq" class="menuText">Faq</a></div>
+      <div class="menuOption"><a href="/about" class="menuText">About</a></div>
+    </div>
+    <div class="userinfoContainer" >
+    <% if(typeof user !== 'undefined' && user.name) { %>
+      <div class="userinfo">
+        <p class="userTextInfo"><%= user.name%></p>
+        <p class="userTextInfo">(<%=user.Email%>)</p>
+      </div>
+      <a class="logout" href="/logout">Log out</a>
+    <% } else { %>
+      <a href="/login">
+        <div class="login">
+          <p class="login-text">Login</p>
+        </div>
+      </a>
+    <% }%>
+    </div>
+  </div>
+  <div id="titleContainer">
+      <p id="title"><%= title %></h1>
+  </div>
+
+  <div class="container">

@@ -1,0 +1,167 @@
+/* MENU */
+#menu{    
+    width: 100%;
+    background-color: rgb(37, 37, 37);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+#menuOptions{
+    background-color: rgb(37, 37, 37);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+.menuOption{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-right: solid 1px rgb(24, 24, 24);
+}
+
+.userinfoContainer{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2%;
+}
+.userTextInfo{
+    color: white;
+    margin-right: 2%;
+    margin-bottom: 0;
+}
+.userinfo{
+    display: flex;
+    flex-direction: row;
+}
+
+a, a:hover{
+    text-decoration: none;
+}
+
+.login,
+.login:hover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-style: solid;
+    border-width: 0;
+    border-radius: 5px;
+
+    width: 150%;
+}
+.login{
+    background-color: rgb(22, 125, 185);
+}
+.login:hover{
+    background-color: rgb(15, 100, 150);
+}
+.login-text{
+    color: white;
+    margin-bottom: 0;
+    margin-right: 5%;
+}
+
+
+.logout,
+.logout:hover{
+    text-decoration: none;
+    height: 80%;
+}
+.logout{
+    color: rgb(187, 36, 36);
+}
+.logout:hover{
+    color: rgb(139, 7, 7);
+}
+
+.menuText, .menuText:hover{
+    color: white ;
+    font-size: 1.4em;
+    text-decoration: none;
+
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.menuOption:hover{
+    background-color: rgb(58, 58, 58);
+}
+
+/* SUBMENU */
+
+#submenu{    
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+.submenuOption{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(226, 226, 226);
+    border-right: solid 1px rgb(255, 255, 255);
+}
+
+.submenuText, .submenuText:hover{
+    color: black ;
+    font-size: 1.3em;
+    text-decoration: none;
+
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.submenuOption:hover{
+    background-color: rgb(192, 192, 192); ;
+}
+
+
+
+/* TITLE */
+#titleContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(26, 26, 26);
+    margin-bottom: 10vh;
+}
+
+#title{
+    color: white;
+    font-size: 3em;
+}
+
+
+
+/* RESPONSIVE */
+@media screen and (max-device-width: 600px) {
+    #menu,
+    #submenu{    
+        flex-direction: column;
+    }
+    .menuOption,
+    .submenuOption{
+        width: 100%;
+        border-right: none;
+        border-bottom: solid 1px rgb(24, 24, 24);
+    }
+
+  }

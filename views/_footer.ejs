@@ -1,0 +1,20 @@
+<footer>
+    <p>&copy; FAQ Node - Nicolas Caillieux - 2020</p>
+</footer>
+
+</div>
+
+<% if (typeof reactScript != 'undefined') { %>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
+
+    <script type="text/babel" src="/react-scripts/<%=reactScript%>.js"></script>
+<% } %>
+
+</body>
+
+</html>
