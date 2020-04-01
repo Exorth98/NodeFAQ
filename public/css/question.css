@@ -5,7 +5,21 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 5vh;
+    margin-top: 7vh;
 }
+
+#back, #back:hover{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 0.5% 1%;
+
+    border-style: solid;
+    border-width: 0;
+    border-radius: 5px;
+}
+#back{background-color: rgb(207, 0, 0);}
+#back:hover{background-color: rgb(255, 30, 30);}
+
 .question-domain{
     padding: 0.5% 1%;
     background-color: rgb(15, 100, 150);
@@ -46,7 +60,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 10%;
+    min-width: 10%;
     height: 100%;
 }
 .upvote-text{
@@ -87,4 +101,46 @@ a, a:hover{
 }
 .answer{
     margin-bottom: 0;
+}
+
+/* RESPONSIVE */
+@media screen and (max-device-width: 600px) {
+
+
+    .question-content{
+        font-size: 1.5em;
+    }
+
+    .question-header{
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .question-domain{
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1%;
+    }
+
+    .upvote-button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2vh;
+        height: 2vh;
+    
+        border-width: 0;
+    }
+
+    .upvote-button-text
+    {
+        color: green;
+        font-size: 1.6em;
+        margin-top: -.2em; /*font-size / 4*/
+        margin-bottom: 0;
+    }
+
+    .react-container{
+        margin-bottom: 7%;
+    }
 }

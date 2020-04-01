@@ -6,7 +6,8 @@ const {sessionChecker} = require("../helpers/sessionCheckers")
 
 // faq display
 router.get("/faq",sessionChecker, (req, res) => {
-    const feedback = req.session.faqFeedback
+    var feedback = req.session.feedback;
+    req.session.feedback = undefined;
     req.app.get('db').getQuestions( (err, rows) => {
       if (err) return console.error(err.message);
       res.render("faq", {feedback, user: req.session.user, domain:"All",model: rows });
@@ -39,12 +40,11 @@ router.post("/faq",sessionChecker, (req, res) => {
   if(req.body.Question && req.body.Answer){
     req.app.get('db').addQuestion(req.body.Question,req.session.user.name,req.body.Domain, req.body.Answer, err => {
       if (err) return console.error(err.message);
-      req.session.faqFeedback = ""
       res.redirect("/faq");     
     });
   }
   else{
-    req.session.faqFeedback = "Please fill all fields"
+    req.session.feedback = "Please fill all fields"
     res.redirect("/faq")
   }
 });

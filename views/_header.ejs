@@ -23,21 +23,19 @@
       <div class="menuOption"><a href="/faq" class="menuText">Faq</a></div>
       <div class="menuOption"><a href="/about" class="menuText">About</a></div>
     </div>
-    <div class="userinfoContainer" >
+    
     <% if(typeof user !== 'undefined' && user.name) { %>
-      <div class="userinfo">
-        <p class="userTextInfo"><%= user.name%></p>
-        <p class="userTextInfo">(<%=user.Email%>)</p>
-      </div>
-      <a class="logout" href="/logout">Log out</a>
-    <% } else { %>
-      <a href="/login">
-        <div class="login">
-          <p class="login-text">Login</p>
+      <div class="userinfoContainer" >
+        <div class="userinfo">
+          <p class="userTextInfo"><%= user.name%></p>
+          <p class="userTextInfo">(<%=user.Email%>)</p>
         </div>
-      </a>
+        <a class="logout" href="/logout">Log out</a>
+      </div>
+    <% } else { %>
+      <a class="login" href="/login">Login</a>
     <% }%>
-    </div>
+    
   </div>
   <div id="titleContainer">
       <p id="title"><%= title %></h1>

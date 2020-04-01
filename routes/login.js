@@ -15,7 +15,8 @@ router.get("/logout", sessionChecker, (req, res) => {
   
 // Login
 router.get("/login", sessionCheckerOut, (req, res) => {
-    var feedback = req.session.loginMessage;
+    var feedback = req.session.feedback;
+    req.session.feedback = undefined;
     res.render("login",{feedback});
 });
 
@@ -33,18 +34,17 @@ router.post("/login",sessionCheckerOut, (req, res) => {
           const userId = rows[0].userId
           if(bcrypt.compareSync(Password, db_pass)){
             req.session.user = {name,Email,userId}
-            req.session.loginMessage = ""
           }
-          else req.session.loginMessage = "Wrong password"
+          else req.session.feedback = "Wrong password"
         }
-        else req.session.loginMessage = "Email not found"
+        else req.session.feedback = "Email not found"
 
         res.redirect("/faq")
       });
     }
     else {
       // console.log("Please fill all fields")
-      req.session.loginMessage = 'Please fill all fields';
+      req.session.feedback = 'Please fill all fields';
       res.redirect("/login")
     }
 });
@@ -52,7 +52,8 @@ router.post("/login",sessionCheckerOut, (req, res) => {
   
 // Register
 router.get("/register",sessionCheckerOut, (req, res) => {
-  var feedback = req.session.registerMessage;
+  var feedback = req.session.feedback;
+  req.session.feedback = undefined;
   res.render("register",{feedback});
 });
 
@@ -72,7 +73,6 @@ router.post("/register",sessionCheckerOut, (req, res) => {
               if (err) return console.error(err.message);
               const userId = rows[0].userId
               req.session.user = {name:Nickname,Email,userId}
-              req.session.registerMessage = ""
               res.redirect("/faq")
             })
 
@@ -82,13 +82,13 @@ router.post("/register",sessionCheckerOut, (req, res) => {
           const feedback = rows[0].Nickname == Nickname 
           ?"Nickname already used" 
           :"Email already used"
-          req.session.registerMessage = feedback
+          req.session.feedback = feedback
           res.redirect("/register")
         }
       })
     }
     else{
-      req.session.registerMessage = "Please fill all fields"
+      req.session.feedback = "Please fill all fields"
       res.redirect("/register")
     }
   

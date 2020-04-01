@@ -23,19 +23,28 @@ class QuestionList extends React.Component {
       <div className="react-container" >
         {this.state.questions.map((qu,i)=>(
 
-          <a href={`/faq/question/${qu.faqId}`} key={i}>
-            <div className="question-container">
-                <div className="question-header">
-                    <p className="question-domain">{qu.Domain}</p>
-                    <p className="question-content">{qu.Question}</p>
-                </div>
-                <div className="question-body">
-                    <p className="question-answer">Best answer (from {qu.answerAuthor}, {qu.Upvote} votes):</p>
-                    <p>{qu.Answer}</p>
-                    <p className="question-author">Posted by: {qu.questionAuthor}</p>
-                </div>
+        <a href={`/faq/question/${qu.faqId}`} key={i}>
+          <div className="question-container">
+
+            <div className="question-header">
+              <p className="question-domain">{qu.Domain}</p>
+              <p className="question-content">{qu.Question}</p>
+              <p className="question-author"> Posted by {qu.questionAuthor}</p>
             </div>
-          </a>
+
+            <div className="question-body">
+              <div className = "upvote-container">
+                <p className="upvote-text">{qu.Upvote}</p>
+              </div>
+              <div className="answer-body">
+                  <p className="answer-author"> Best answer (from {qu.answerAuthor}) :</p>
+                  <p className='answer'>{qu.Answer}</p>
+              </div>
+            </div>
+
+          </div>
+        </a>
+
         ))}
       </div>
     )

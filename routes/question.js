@@ -6,13 +6,14 @@ const {sessionChecker} = require("../helpers/sessionCheckers")
 
 // question display
 router.get("/faq/question/:id",sessionChecker, (req, res) => {
-    const id = Number(req.params.id)
-    const feedback = req.session.questionFeedback
-    // query question and answers
-    req.app.get('db').getAnswers(id,(err,model) =>{
-      if(err) return console.error(err.message)
-      res.render("question", {feedback, user: req.session.user,model});
-    }) 
+  var feedback = req.session.feedback;
+  req.session.feedback = undefined;
+  const id = Number(req.params.id)
+  // query question and answers
+  req.app.get('db').getAnswers(id,(err,model) =>{
+    if(err) return console.error(err.message)
+    res.render("question", {feedback, user: req.session.user,model});
+  }) 
 });
 
 
@@ -26,7 +27,7 @@ router.post("/faq/question/:id",sessionChecker, (req, res) => {
     });
   }
   else{
-    req.session.questionFeedback = "Cannot add empty answer"
+    req.session.feedback = "Cannot add empty answer"
     res.redirect("back");
   }
 });
@@ -45,12 +46,15 @@ router.get("/faq/question/upvote/:qid/:aid/:votes",sessionChecker, (req, res) =>
                 [req.session.user.userId,qid,aid], 
                 (err => {
                     if (err) return console.error(err.message);
+                    res.redirect('/faq/question/'+qid)
                 }))
             })
         }
-        else console.log("The users already voted for this question")
+        else {
+          req.session.feedback = "You already voted for this question"
+          res.redirect("back");
+        }
     })
-    res.redirect('back')
 });
 
 module.exports = router;
