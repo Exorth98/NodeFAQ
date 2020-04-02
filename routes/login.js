@@ -31,7 +31,12 @@ router.get("/faq/emailvalidation/:verifUuid",(req,res) => {
       req.session.feedback = "An error occured"
       res.redirect("/login");
     }
-    else res.render("emailvalidation");
+    else {
+      if (req.session.user && req.cookies.user_sid) {
+        req.session.user.Verified = true
+      }
+      res.render("emailvalidation");
+    }
   }))
 })
 
@@ -56,8 +61,10 @@ router.post("/login",sessionCheckerOut, (req, res) => {
           const name = rows[0].Nickname
           const db_pass = rows[0].Password
           const userId = rows[0].userId
+          const Verified = rows[0].Verified === 'true' ? true : false;
           if(bcrypt.compareSync(Password, db_pass)){
-            req.session.user = {name,Email,userId}
+            if(!Verified) req.session.feedback = "Don't forget to verify your email address to post content on NodeFAQ."
+            req.session.user = {name,Email,userId,Verified}
           }
           else req.session.feedback = "Wrong password"
         }
@@ -93,9 +100,9 @@ router.post("/register",sessionCheckerOut, (req, res) => {
               if (err) return console.error(err.message);
 
               const userId = rows[0].userId
-              req.session.user = {name:Nickname,Email,userId}
+              req.session.user = {name:Nickname,Email,userId,Verified:false}
               sgUtils.sendConfirmationEmail(Email,Nickname,verifUuid)
-              req.session.feedback = "An email was send to you to confirm your email. Please confirm your email to post content on NodeFAQ."
+              req.session.feedback = "An email has been sent to you to confirm your email. Please confirm your email to post content on NodeFAQ."
               res.redirect("/faq")
             })
 

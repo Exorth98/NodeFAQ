@@ -20,16 +20,17 @@ router.get("/faq/question/:id",sessionChecker, (req, res) => {
 // question post (adding)
 router.post("/faq/question/:id",sessionChecker, (req, res) => {
   const id = req.params.id
-  if(req.body.Answer){
-    req.app.get('db').addAnswer(id,req.body.Answer,req.session.user.name, err => {
-      if (err) return console.error(err.message)
-      res.redirect("back");
-    });
+  if(req.session.user.Verified){
+    if(req.body.Answer){
+      req.app.get('db').addAnswer(id,req.body.Answer,req.session.user.name, err => {
+        if (err) return console.error(err.message)
+      });
+    }
+    else req.session.feedback = "Cannot add empty answer"
   }
-  else{
-    req.session.feedback = "Cannot add empty answer"
-    res.redirect("back");
-  }
+  else req.session.feedback = "Please verify your email address to post content"
+
+  res.redirect('back')
 });
 
 // question upvote 

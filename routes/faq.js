@@ -37,16 +37,17 @@ router.post("/faq/search",sessionChecker, (req, res) => {
 
 // faq post (adding)
 router.post("/faq",sessionChecker, (req, res) => {
-  if(req.body.Question && req.body.Answer){
-    req.app.get('db').addQuestion(req.body.Question,req.session.user.name,req.body.Domain, req.body.Answer, err => {
-      if (err) return console.error(err.message);
-      res.redirect("/faq");     
-    });
+
+  if(req.session.user.Verified){
+    if(req.body.Question && req.body.Answer){
+      req.app.get('db').addQuestion(req.body.Question,req.session.user.name,req.body.Domain, req.body.Answer, err => {
+        if (err) return console.error(err.message);   
+      });
+    }
+    else req.session.feedback = "Please fill all fields"
   }
-  else{
-    req.session.feedback = "Please fill all fields"
-    res.redirect("/faq")
-  }
+  else req.session.feedback = "Please verify your email address to post content"
+  res.redirect("/faq")
 });
 
 
