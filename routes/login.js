@@ -1,10 +1,12 @@
 const express = require("express");
+var uuid = require('node-uuid');
 const router = express.Router();
 
 const bcrypt = require('bcrypt')
 const saltRounds = 10;
 
 const {sessionChecker,sessionCheckerOut} = require("../helpers/sessionCheckers")
+const sgUtils = require("../helpers/sendGrid")
 
 
 // Logout
@@ -20,7 +22,29 @@ router.get("/login", sessionCheckerOut, (req, res) => {
     res.render("login",{feedback});
 });
 
+// email confirmation
+router.get("/faq/emailvalidation/:verifUuid",(req,res) => {
+  const verifUuid = req.params.verifUuid
+  req.app.get('db').db.run("UPDATE users SET Verified = 'true' WHERE Verified = ?",[verifUuid], (err => {
+    if (err){
+      console.error(err.message)
+      req.session.feedback = "An error occured"
+      res.redirect("/login");
+    }
+    else res.render("emailvalidation");
+  }))
+})
 
+// Register
+router.get("/register",sessionCheckerOut, (req, res) => {
+  var feedback = req.session.feedback;
+  req.session.feedback = undefined;
+  res.render("register",{feedback});
+});
+
+
+
+// LOGIN POST
 router.post("/login",sessionCheckerOut, (req, res) => {
     const db = req.app.get('db').db
     const {Email,Password} = req.body
@@ -49,21 +73,17 @@ router.post("/login",sessionCheckerOut, (req, res) => {
     }
 });
   
-  
-// Register
-router.get("/register",sessionCheckerOut, (req, res) => {
-  var feedback = req.session.feedback;
-  req.session.feedback = undefined;
-  res.render("register",{feedback});
-});
+
+// REGISTER POST
 
 router.post("/register",sessionCheckerOut, (req, res) => {
     const db = req.app.get('db').db
     const {Email,Nickname} = req.body
     const Hash = bcrypt.hashSync(req.body.Password, saltRounds);
+    const verifUuid = uuid.v4()
     const verifiySql = "SELECT * FROM users WHERE Email = ? or Nickname = ?";
-    const insertSql = "INSERT INTO users (Email, Nickname, Password) VALUES (?, ?, ?)";
-    const user = [Email, Nickname,Hash];
+    const insertSql = "INSERT INTO users (Email, Nickname, Password, Verified) VALUES (?, ?, ?, ?)";
+    const user = [Email, Nickname,Hash,verifUuid];
     if(Email && Nickname && Hash){
       db.all(verifiySql,[Email,Nickname], (err,rows) => {
         if(rows.length==0){
@@ -71,8 +91,11 @@ router.post("/register",sessionCheckerOut, (req, res) => {
             if (err) return console.error(err.message);
             db.all("SELECT userId FROM users WHERE Nickname = ?",[Nickname], (err,rows)=>{
               if (err) return console.error(err.message);
+
               const userId = rows[0].userId
               req.session.user = {name:Nickname,Email,userId}
+              sgUtils.sendConfirmationEmail(Email,Nickname,verifUuid)
+              req.session.feedback = "An email was send to you to confirm your email. Please confirm your email to post content on NodeFAQ."
               res.redirect("/faq")
             })
 

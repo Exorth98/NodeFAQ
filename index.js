@@ -12,6 +12,8 @@ const socketUtils = require("./helpers/socket")
 const login = require('./routes/login')
 const faq = require('./routes/faq')
 const question = require('./routes/question')
+// Improt Sendgrid api key
+
 
 // Initialize servers
 const app = express();

@@ -28,7 +28,8 @@ const user_create = `CREATE TABLE IF NOT EXISTS users (
   userId INTEGER PRIMARY KEY AUTOINCREMENT,
   Email VARCHAR(100) NOT NULL,
   Nickname VARCHAR(100) NOT NULL,
-  Password VARCHAR(100) NOT NULL
+  Password VARCHAR(100) NOT NULL,
+  Verified VARCHAR(100) NOT NULL
 );`;
 
 // create table users
@@ -41,23 +42,23 @@ const votes_create = `CREATE TABLE IF NOT EXISTS votes (
 
 // Select answers and their best answer
 const select_questions = `
-SELECT 
-faq.faqId,
-faq.Question,
-faq.Domain,
-faq.Author AS questionAuthor,
-answers.Answer,
-answers.Upvote,
-answers.Author AS answerAuthor
+  SELECT 
+  faq.faqId,
+  faq.Question,
+  faq.Domain,
+  faq.Author AS questionAuthor,
+  answers.Answer,
+  answers.Upvote,
+  answers.Author AS answerAuthor
 
-FROM faq
-INNER JOIN answers 
-ON faq.faqId = answers.faqId
+  FROM faq
+  INNER JOIN answers 
+  ON faq.faqId = answers.faqId
 
-WHERE answers.Upvote = (
-  SELECT Max(Upvote) FROM answers
-  WHERE faqId = faq.faqId
-)`;
+  WHERE answers.Upvote = (
+    SELECT Max(Upvote) FROM answers
+    WHERE faqId = faq.faqId
+  )`;
 
 /****************************
 **  Database manager Class **
