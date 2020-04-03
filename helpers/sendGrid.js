@@ -1,9 +1,9 @@
 const sgMail = require('@sendgrid/mail');
-const {SENDGRID_API_KEY} = require("../config")
+const {SENDGRID_API_KEY} = require("../config/config")
 
 sgMail.setApiKey(SENDGRID_API_KEY);
 
-const sendConfirmationEmail = (email,nickname,userId) =>  {
+const sendConfirmationEmail = (email,nickname,userId) => {
     const msg = {
         to: email,
         from: 'noreply@nodefaq.com',
