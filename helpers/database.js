@@ -135,7 +135,7 @@ class DbManager {
   */
   getSearchedQuestions(search,cb){
     const like = "%"+search+"%"
-    const sql = select_questions + " AND faq.Question LIKE ? OR answers.Answer LIKE ? OR questionAuthor LIKE ?;"
+    const sql = select_questions + " AND (faq.Question LIKE ? OR answers.Answer LIKE ? OR questionAuthor LIKE ?);"
     this.db.all(sql, [like,like,like], (err, rows) => {
       cb(err,rows)
     });
