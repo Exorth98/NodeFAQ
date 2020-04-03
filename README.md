@@ -20,6 +20,12 @@ To test the project you need to :
         "SENDGRID_API_KEY" : "Your api key"
     }
     ```
+
+- Install librairies:
+    ```
+    npm i
+    ```
+
 - Run the server:
     ```
     node index
