@@ -1,6 +1,35 @@
 <% if(typeof user === 'undefined') user = {} %>
-<%- include("_header",{title:"Web Architecture"}) -%>
+<%- include("_header",{title:"Web Application"}) -%>
 
-<h1>Main page</h1>
+<h1>NodeFAQ : Web App Architecture project </h1>
+
+<h3> Presentation </h3>
+
+<p>A project for my Web Application Architecture course, consisting on a FAQ/forum.</p>
+<p>This project runs a NodeJS server rendering pages using EJS.</p>
+<p>All data and users are stored using a local sqlite database.</p>
+<p> Some parts of the website are rendering in real-time using the cooperation of React and Socket.io.</p>
+
+<h3> Usage </h3>
+
+<p>You must login or create an account to access the faq.</p>
+<p>On the faq you can see questions and answers in different categories and search with specific keyword.</p>
+<p>You can click on a question to see all answers from all users and upvotes.</p>
+<p>You can add question or answers, if your email has been verified. (A verification email is sent to you when registering).</p>
+
+<h3> Notes </h3>
+
+<p>The project is following the rules of the the course project, it is not a fully-elaborated project.</p>
+<p>Here are the main skills developped by the project:</p>
+<ul>
+    <li>Familiarize with HTML and CSS for rendering web Pages</li>
+    <li>Go deeper in css to make a website responsive</li>
+    <li>Familiarize with node and express for creating, running and calling server</li>
+    <li>Work with different methods GET/POST, and form and urls to provide structured navigation and data management.</li>
+    <li>Use a local sqLite database for data storage.</li>
+    <li>User cookies and session to manage user login or logout, and pages access.</li>
+    <li>Use Sendgrid as external API for sending verification emails, and restrain posting content to verified accounts.</li>
+    <li>Integrate React to render some parts of the website in real time cooperating with socket.io.</li>
+</ul>
 
 <%- include("_footer") -%>
